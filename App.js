@@ -6,6 +6,7 @@ import {
   View,
   StatusBar
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -15,6 +16,11 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
+
+  componentDidMount() {
+    SplashScreen.hide()
+  }
+
   render() {
     return (
       <View style={styles.container}>

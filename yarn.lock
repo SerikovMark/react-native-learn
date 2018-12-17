@@ -3971,6 +3971,11 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-contacts@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-2.2.5.tgz#5f7ff7b0310a095753ef0491d6e9453dcfc17ff8"
+  integrity sha512-yorPL9PS/g3lKIczZZ18s+LI2+tPHfudsAwuEKA63VB0YteBb5Rz2NnMmBzvI3bRdvNgzzXoCPwxOzAHL0tt1g==
+
 react-native-elements@^1.0.0-beta7:
   version "1.0.0-beta7"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.0.0-beta7.tgz#d732affc905079033a8b53343587f7c1dbc59834"
@@ -5247,3 +5252,8 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
+
+yarn@^1.12.3:
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.12.3.tgz#fb4599bf1f8da01552bcc7e1571dfd4e53788203"
+  integrity sha512-8f5rWNDvkhAmCxmn8C0LsNWMxTYVk4VGKiq0sIB6HGZjaZTHsGIH87SUmVDUEd2Wk54bqKoUlbVWgQFCQhRkVw==

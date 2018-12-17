@@ -2,50 +2,36 @@ import React, { Component } from 'react';
 import { StatusBar, StyleSheet, FlatList, View } from 'react-native';
 import ContactItem from './ContactItem';
 import SplashScreen from 'react-native-splash-screen';
+import * as Contacts from "react-native-contacts";
+import {SearchBar} from "react-native-elements";
 
 export default class ContactList extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            contacts: [
-                {
-                    id: 1,
-                    name: 'Ivan Ivanov',
-                    phoneNumber: '89977-78-5454',
-                    thumbnail: 'https://wp-seven.ru/wp-content/uploads/2017/06/Xbox-Avatar-2.0-2.png'
-                },
-                {
-                    id: 2,
-                    name: 'Sidor Sidorov',
-                    phoneNumber: '912447-454-454',
-                    thumbnail: 'https://avatar-ssl.xboxlive.com/avatar/davidvkimball/avatarpic-xl.png'
-                },
-                {
-                    id: 3,
-                    name: 'Pert Petrov',
-                    phoneNumber: '65777-7845-4554',
-                    thumbnail: 'http://www.mtv.co.uk/sites/default/files/styles/vimn_image_embed/public/mtv_uk/articles/2018/04/23/xbox-avatar-leak-.jpg?itok=zNFQlhWJ'
-                }
-            ]
-        }
+            loading: false,
+            contacts: []
+        };
+        this.contactsCache = [];
     }
 
     componentDidMount() {
-        SplashScreen.hide()
+        SplashScreen.hide();
+        this.loadContacts();
       }
 
     _renderItem = ({ item }) => (
         <ContactItem
             id={item.id}
-            name={item.name}
-            phoneNumber={item.phoneNumber}
-            thumbnail={item.thumbnail}
+            name={item.givenName}
+            phoneNumber={item.phoneNumbers[0].number}
+            thumbnail={item.thumbnailPath}
             navigation={this.props.navigation}
         />
     );
 
-    _keyExtractor = (item, index) => item.id.toString();
+    _keyExtractor = (item, index) => item.id;
 
     render() {
         return (
@@ -54,12 +40,72 @@ export default class ContactList extends Component {
                     barStyle="light-content"
                 />
                 <FlatList
+                    ListHeaderComponent={this.getHeaderComponent}
                     data={this.state.contacts}
                     keyExtractor={this._keyExtractor}
                     renderItem={this._renderItem}
                 />
             </View>
         );
+    }
+
+    loadContacts() {
+        Contacts.getAll((err, contacts) => {
+            if (err) throw err;
+            // contacts returned
+            if (contacts != null) {
+                for (const contact of contacts) {
+                    if (!contact.hasThumbnail) {
+                        contact.thumbnailPath = "https://bizraise.pro/wp-content/uploads/2014/09/no-avatar-300x300.png"
+                        contact.hasThumbnail = true;
+                    }
+                    if (contact.phoneNumbers == null || contact.phoneNumbers.length === 0) {
+                        contact.phoneNumbers[0] = "";
+                    }
+                    if (contact.middleName == null) {
+                        contact.middleName = "";
+                    }
+                    if (contact.familyName == null) {
+                        contact.familyName = "";
+                    }
+                    if (contact.givenName == null) {
+                        contact.givenName = "";
+                    }
+                }
+                this.setState({
+                    contacts: contacts
+                });
+                this.contactsCache = contacts;
+            }
+        });
+    }
+
+    getHeaderComponent =() => {
+        return (
+            <SearchBar
+                placeholder="Search..."
+                lightTheme
+                round
+                onChangeText={text => this.searchContactFilter(text)}
+            />
+        )
+    };
+
+    searchContactFilter(text) {
+        if (text == null || text.length < 1) {
+            this.setState({
+                    contacts: this.contactsCache
+            } );
+            return;
+        }
+        const foundContacts = this.contactsCache.filter(contact => {
+            const itemData = `${contact.givenName.toUpperCase()} ${contact.familyName.toUpperCase()} ${contact.middleName.toUpperCase()}`;
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+        });
+        this.setState({
+            contacts: foundContacts,
+        });
     }
 }
 

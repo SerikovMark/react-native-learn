@@ -19,7 +19,7 @@ export default class ContactList extends Component {
     componentDidMount() {
         SplashScreen.hide();
         this.loadContacts();
-      }
+    }
 
     _renderItem = ({ item }) => (
         <ContactItem
@@ -27,6 +27,7 @@ export default class ContactList extends Component {
             name={item.givenName}
             phoneNumber={item.phoneNumbers[0].number}
             thumbnail={item.thumbnailPath}
+            contact={item}
             navigation={this.props.navigation}
         />
     );

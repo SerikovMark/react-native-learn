@@ -4,10 +4,8 @@ import {View, StyleSheet, Text, Image, TouchableOpacity} from 'react-native'
 export default class ContactItem extends Component {
 
     showContactDetail = () => {
-        let id = this.props.id;
-        let name = this.props.name;
-        let promise = this.props.navigation.navigate('ContactDetail', {id: id, name: name});
-        console.log("-----------------" + id + " promise = " + promise);
+        let contact = this.props.contact;
+        let promise = this.props.navigation.navigate('ContactDetail', {contact: contact});
     };
 
     render() {

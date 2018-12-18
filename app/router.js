@@ -4,6 +4,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import { Icon } from 'react-native-elements';
 import ContactList from './screens/contacts/ContactList';
 import ContactDetail from './screens/contacts/ContactDetail';
+import InputPage from './screens/input/InputPage';
+import { createAppContainer } from "react-navigation";
 
 Dimensions.get('window');
 
@@ -13,6 +15,13 @@ export const Tabs = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'ContactList',
             tabBarIcon: ({tintColor}) => <Icon name="open-book" type="entypo" size={28} color={tintColor} />
+        }
+    },
+    'InputPage': {
+        screen: InputPage,
+        navigationOptions: {
+            tabBarLabel: 'InputPage',
+            tabBarIcon: ({tintColor}) => <Icon name="ios-add-circle-outline" type="ionicon" size={28} color={tintColor} />
         }
     }
 });
@@ -56,3 +65,5 @@ export const createRootNavigator = () => {
         }
     );
 };
+
+export const AppContainer = createAppContainer(createRootNavigator(), Tabs);

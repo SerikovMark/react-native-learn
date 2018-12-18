@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar, StyleSheet, FlatList, View } from 'react-native';
 import ContactItem from './ContactItem';
-import SplashScreen from 'react-native-splash-screen';
 import * as Contacts from "react-native-contacts";
 import {SearchBar} from "react-native-elements";
 
@@ -17,7 +16,6 @@ export default class ContactList extends Component {
     }
 
     componentDidMount() {
-        SplashScreen.hide();
         this.loadContacts();
     }
 

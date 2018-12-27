@@ -17,7 +17,6 @@ const instructions = Platform.select({
 });
 
 
-
 const store = configureStore();
 
 persistStore(
@@ -32,7 +31,7 @@ export default class App extends Component {
 
   componentDidMount() {
     SplashScreen.hide();
-}
+  }
 
   render() {
     return (

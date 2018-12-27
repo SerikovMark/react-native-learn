@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 
 import configureStore from './store';
+import { persistStore} from 'redux-persist'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -15,7 +16,17 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
+
 const store = configureStore();
+
+persistStore(
+  store,
+  null,
+  () => {
+    store.getState() // if you want to get restoredState
+  }
+)
 
 export default class App extends Component {
 
